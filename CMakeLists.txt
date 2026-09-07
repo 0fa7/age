@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(age LANGUAGES CXX)
 
 set(AGE_SOURCES
+    "src/engine.cpp"
     "src/main.cpp")
 
 add_executable(age ${AGE_SOURCES})
