@@ -13,7 +13,7 @@ namespace age
         engine();
         ~engine();
         void run();
-        
+
     private:
         void initialize();
         void process_input();

@@ -12,7 +12,7 @@ engine::engine() : m_is_running(true),
 
 engine::~engine()
 {
-    if(m_window != nullptr)
+    if (m_window != nullptr)
     {
         SDL_DestroyWindow(m_window);
     }
@@ -25,7 +25,6 @@ struct SDLWindowDeleter
     {
         if (window != nullptr)
         {
-            
         }
     }
 };
