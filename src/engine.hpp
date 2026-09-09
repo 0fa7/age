@@ -1,9 +1,12 @@
 #ifndef AGE_ENGINE_HPP
 #define AGE_ENGINE_HPP
 
-#include <memory>
+#include <cstdint>
 
+class SDL_Renderer;
 class SDL_Window;
+
+#define AGE_FIXED_FPS 60
 
 namespace age
 {
@@ -21,7 +24,9 @@ namespace age
         void render();
 
         bool m_is_running;
+        SDL_Renderer *m_renderer;
         SDL_Window *m_window;
+        std::uint64_t m_delta_time;
     };
 };
 

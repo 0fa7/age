@@ -1,33 +1,26 @@
 #include "engine.hpp"
 #include <iostream>
+#include <stdexcept>
 #include <SDL3/SDL.h>
 
 using namespace age;
 
 engine::engine() : m_is_running(true),
-                   m_window(nullptr)
+                    m_renderer(nullptr),
+                    m_window(nullptr),
+                    m_delta_time(0)
 {
     initialize();
 }
 
 engine::~engine()
 {
-    if (m_window != nullptr)
-    {
-        SDL_DestroyWindow(m_window);
-    }
+    SDL_DestroyRenderer(m_renderer);
+    m_renderer = nullptr;
+    SDL_DestroyWindow(m_window);
+    m_window = nullptr;
     SDL_Quit();
 }
-
-struct SDLWindowDeleter
-{
-    void operator()(SDL_Window *window) const
-    {
-        if (window != nullptr)
-        {
-        }
-    }
-};
 
 void engine::initialize()
 {
@@ -43,11 +36,24 @@ void engine::initialize()
 
     if (m_window == nullptr)
     {
-        std::cout << SDL_GetError() << std::endl;
+        std::string err_msg = "SHIT HAPPENS: ";
+        err_msg += SDL_GetError(); 
+        throw std::runtime_error(err_msg);
     }
+    
+    m_renderer = SDL_CreateRenderer(m_window, "direct3d12");
 
+    if (m_renderer == nullptr)
+    {
+        std::string err_msg = "SHIT HAPPENS: ";
+        err_msg += SDL_GetError(); 
+        throw std::runtime_error(err_msg);
+    }
+    
     SDL_GetWindowSurface(m_window);
     SDL_UpdateWindowSurface(m_window);
+
+    m_delta_time = SDL_GetTicks();
 
     std::cout << "Initialization complete.";
 }
@@ -59,6 +65,7 @@ void engine::run()
         process_input();
         update_world();
         render();
+        m_delta_time = SDL_GetTicks();
     }
 }
 
@@ -93,4 +100,6 @@ void engine::update_world()
 
 void engine::render()
 {
+    SDL_RenderClear(m_renderer);
+    SDL_RenderPresent(m_renderer);
 }
