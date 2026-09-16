@@ -6,9 +6,10 @@
 using namespace age;
 
 engine::engine() : m_is_running(true),
-                    m_renderer(nullptr),
-                    m_window(nullptr),
-                    m_delta_time(0)
+                   m_renderer(nullptr),
+                   m_window(nullptr),
+                   m_current_time(0),
+                   m_delta_time(0)
 {
     initialize();
 }
@@ -37,36 +38,48 @@ void engine::initialize()
     if (m_window == nullptr)
     {
         std::string err_msg = "SHIT HAPPENS: ";
-        err_msg += SDL_GetError(); 
+        err_msg += SDL_GetError();
         throw std::runtime_error(err_msg);
     }
-    
+
     m_renderer = SDL_CreateRenderer(m_window, "direct3d12");
 
     if (m_renderer == nullptr)
     {
         std::string err_msg = "SHIT HAPPENS: ";
-        err_msg += SDL_GetError(); 
+        err_msg += SDL_GetError();
         throw std::runtime_error(err_msg);
     }
-    
+
     SDL_GetWindowSurface(m_window);
     SDL_UpdateWindowSurface(m_window);
 
-    m_delta_time = SDL_GetTicks();
+    update_time();
 
-    std::cout << "Initialization complete.";
+    std::cout << "Initialization complete." << std::endl;
 }
 
 void engine::run()
 {
+    setup_world();
+
     while (m_is_running)
     {
+
         process_input();
         update_world();
         render();
-        m_delta_time = SDL_GetTicks();
+
+        update_time();
+
+        //std::cout << "current: " << m_current_time << std::endl;
+        //std::cout << "delta: " << m_delta_time << std::endl;
     }
+}
+
+void engine::setup_world()
+{
+    m_registry.create_actor();
 }
 
 void engine::process_input()
@@ -78,7 +91,6 @@ void engine::process_input()
         switch (event.type)
         {
         case SDL_EVENT_KEY_DOWN:
-            // Check if the pressed key is Escape
             if (event.key.key == SDLK_ESCAPE)
             {
                 m_is_running = false;
@@ -96,10 +108,37 @@ void engine::process_input()
 
 void engine::update_world()
 {
+    for(const auto &current_actor : m_registry.m_actors)
+    {
+        current_actor->update();
+    }
 }
 
 void engine::render()
 {
+    // set bg color & draw
+    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
     SDL_RenderClear(m_renderer);
+
+    // layer game objects on to fresh canvas
+
     SDL_RenderPresent(m_renderer);
+}
+
+void engine::update_time()
+{
+    std::uint64_t new_time = SDL_GetTicks();
+    m_delta_time = new_time - m_current_time;
+    m_current_time = new_time;
+}
+
+void engine::wait_to_next_frame()
+{
+    if(m_delta_time > AGE_MS_PER_FRAME)
+    {
+        return;
+    }
+
+    uint64_t time_to_wait = AGE_MS_PER_FRAME - m_delta_time;
+    SDL_Delay(time_to_wait);
 }

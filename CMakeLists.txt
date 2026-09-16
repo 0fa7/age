@@ -7,15 +7,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(age LANGUAGES CXX)
 
 set(AGE_SOURCES
+    "src/actor.cpp"
     "src/engine.cpp"
-    "src/main.cpp")
+    "src/main.cpp"
+    "src/registry.cpp")
 
-add_executable(age ${AGE_SOURCES})
-target_include_directories(age PUBLIC "C:/Program Files/SDL3/include")
-target_link_directories(age PUBLIC "C:/Program Files/SDL3/lib")
-target_link_libraries(age SDL3)
+add_executable(another_game_engine ${AGE_SOURCES})
+target_include_directories(another_game_engine PUBLIC "C:/Program Files/SDL3/include")
+target_link_directories(another_game_engine PUBLIC "C:/Program Files/SDL3/lib")
+target_link_libraries(another_game_engine SDL3)
 
-add_custom_command(TARGET age POST_BUILD        
+add_custom_command(TARGET another_game_engine POST_BUILD        
     COMMAND ${CMAKE_COMMAND} -E copy_if_different  
     "${PROJECT_SOURCE_DIR}/lib/SDL3.dll"      
-    $<TARGET_FILE_DIR:age>) 
+    $<TARGET_FILE_DIR:another_game_engine>) 
