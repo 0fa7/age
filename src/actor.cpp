@@ -1,4 +1,5 @@
 #include "actor.hpp"
+#include "logger.hpp"
 #include <iostream>
 
 using namespace age;
@@ -14,5 +15,5 @@ actor::~actor()
 
 void actor::update()
 {
-    std::cout << m_id << " update" << std::endl;
+    //g_logger.info(m_id + " update");
 }

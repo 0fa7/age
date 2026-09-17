@@ -1,4 +1,5 @@
 #include "engine.hpp"
+#include "logger.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <SDL3/SDL.h>
@@ -25,7 +26,7 @@ engine::~engine()
 
 void engine::initialize()
 {
-    std::cout << "Initializing age engine..." << std::endl;
+    g_logger.info("Initializing age engine...");
 
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -56,7 +57,7 @@ void engine::initialize()
 
     update_time();
 
-    std::cout << "Initialization complete." << std::endl;
+    g_logger.info("Initialization complete.");
 }
 
 void engine::run()
@@ -71,9 +72,6 @@ void engine::run()
         render();
 
         update_time();
-
-        //std::cout << "current: " << m_current_time << std::endl;
-        //std::cout << "delta: " << m_delta_time << std::endl;
     }
 }
 

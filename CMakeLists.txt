@@ -9,6 +9,7 @@ project(age LANGUAGES CXX)
 set(AGE_SOURCES
     "src/actor.cpp"
     "src/engine.cpp"
+    "src/logger.cpp"
     "src/main.cpp"
     "src/registry.cpp")
 

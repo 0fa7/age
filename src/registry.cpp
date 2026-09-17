@@ -1,6 +1,8 @@
 #include "registry.hpp"
+#include "logger.hpp"
 #include "actor.hpp"
 #include <iostream>
+#include <string>
 
 using namespace age;
 
@@ -18,7 +20,7 @@ std::uint64_t registry::create_actor()
 {   
     std::uint64_t current_id = m_next_actor_id;
     m_actors.emplace_back(std::move(std::make_unique<actor>(current_id)));
-    std::cout << "Created actor: " << current_id << std::endl;
+    g_logger.info("Created actor: " + std::to_string(current_id));
     m_next_actor_id++;
     return current_id;
 }
