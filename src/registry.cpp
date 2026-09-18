@@ -1,6 +1,6 @@
 #include "registry.hpp"
 #include "logger.hpp"
-#include "actor.hpp"
+#include "render_system.hpp"
 #include <iostream>
 #include <string>
 
@@ -8,12 +8,9 @@ using namespace age;
 
 registry::registry() :
     m_actors(std::vector<std::unique_ptr<actor>>(0)),
-    m_next_actor_id(1)
+    m_next_actor_id(0)
 {
-}
-
-registry::~registry()
-{
+    create_actor();
 }
 
 std::uint64_t registry::create_actor()

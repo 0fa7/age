@@ -3,14 +3,6 @@
 
 using namespace age;
 
-logger::logger()
-{
-}
-
-logger::~logger()
-{
-}
-
 void logger::error(const std::string_view msg)
 {
     std::cout << "[ERROR]: " << msg << std:: endl;

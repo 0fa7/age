@@ -77,7 +77,8 @@ void engine::run()
 
 void engine::setup_world()
 {
-    m_registry.create_actor();
+    std::uint64_t id = m_registry.create_actor();
+    std::unique_ptr<actor> &a = m_registry.m_actors[0];
 }
 
 void engine::process_input()
@@ -106,9 +107,9 @@ void engine::process_input()
 
 void engine::update_world()
 {
-    for(const auto &current_actor : m_registry.m_actors)
+    for(const auto &sytem : m_registry.m_actors)
     {
-        current_actor->update();
+        
     }
 }
 

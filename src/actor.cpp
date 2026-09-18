@@ -9,11 +9,6 @@ actor::actor(std::uint64_t id) :
 {
 }
 
-actor::~actor()
+void actor::add_component(std::unique_ptr<component> component)
 {
-}
-
-void actor::update()
-{
-    //g_logger.info(m_id + " update");
 }

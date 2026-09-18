@@ -8,8 +8,8 @@ namespace age
     class logger
     {
     public:
-        logger();
-        ~logger();
+        logger() = default;
+        ~logger() = default;
         void error(const std::string_view msg);
         void warn(const std::string_view msg);
         void info(const std::string_view msg);

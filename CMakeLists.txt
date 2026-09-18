@@ -8,10 +8,13 @@ project(age LANGUAGES CXX)
 
 set(AGE_SOURCES
     "src/actor.cpp"
+    "src/component.cpp"
     "src/engine.cpp"
     "src/logger.cpp"
     "src/main.cpp"
-    "src/registry.cpp")
+    "src/rectangle.cpp"
+    "src/registry.cpp"
+    "src/transform.cpp")
 
 add_executable(another_game_engine ${AGE_SOURCES})
 target_include_directories(another_game_engine PUBLIC "C:/Program Files/SDL3/include")
