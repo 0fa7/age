@@ -1,9 +1,11 @@
 #ifndef AGE_TRANSFORM_HPP
 #define AGE_TRANSFORM_HPP
 
+#include "component.hpp"
+
 namespace age
 {
-    class transform
+    class transform : public component
     {
     public:
         transform();

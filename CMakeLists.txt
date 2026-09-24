@@ -12,8 +12,10 @@ set(AGE_SOURCES
     "src/engine.cpp"
     "src/logger.cpp"
     "src/main.cpp"
-    "src/rectangle.cpp"
+    "src/sprite.cpp"
     "src/registry.cpp"
+    "src/render_system.cpp"
+    "src/system.cpp"
     "src/transform.cpp")
 
 add_executable(another_game_engine ${AGE_SOURCES})

@@ -107,9 +107,9 @@ void engine::process_input()
 
 void engine::update_world()
 {
-    for(const auto &sytem : m_registry.m_actors)
+    for(const auto &actor : m_registry.m_actors)
     {
-        
+        actor->update();
     }
 }
 

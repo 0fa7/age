@@ -2,16 +2,21 @@
 #define AGE_RENDER_SYSTEM_HPP
 
 #include "actor.hpp"
+#include "registry.hpp"
+#include "system.hpp"
 #include <vector>
+#include <memory>
 
 namespace age
 {
-    class render_system
+    class registry;
+
+    class render_system : public age::system
     {
     public:
         render_system();
         ~render_system() = default;
-        void update(std::vector<actor> actors);
+        virtual void update(std::unique_ptr<registry> &reg) override;
     };
 };
 

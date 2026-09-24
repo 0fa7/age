@@ -15,10 +15,11 @@ namespace age
         actor(std::uint64_t id);
         actor(actor &other) = default;
         ~actor() = default;
+        void update();
         void add_component(std::unique_ptr<component> component);
     private:
         std::uint64_t m_id;
-        std::unordered_map<std::uint64_t, std::unique_ptr<component>> m_components;
+        std::vector<std::unique_ptr<component>> m_components;
     };
 };
 

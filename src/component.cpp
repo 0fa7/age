@@ -2,6 +2,10 @@
 
 using namespace age;
 
+component::~component()
+{
+}
+
 void component::begin()
 {   
 }

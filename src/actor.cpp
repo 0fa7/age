@@ -9,6 +9,15 @@ actor::actor(std::uint64_t id) :
 {
 }
 
+void actor::update()
+{
+    for(auto &component : m_components)
+    {
+        component->update();
+    }
+}
+
 void actor::add_component(std::unique_ptr<component> component)
 {
+    m_components.push_back(std::move(component));
 }
