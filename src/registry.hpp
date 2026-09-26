@@ -14,6 +14,7 @@ namespace age
         registry();
         ~registry() = default;
         std::uint64_t create_actor();
+        void create_system();
         std::vector<std::unique_ptr<actor>> m_actors;
         std::vector<std::unique_ptr<system>> m_systems;
     

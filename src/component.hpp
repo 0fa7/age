@@ -5,7 +5,7 @@
 
 namespace age
 {
-    enum class ComponentType : std::uint64_t
+    enum ComponentType : std::uint64_t
     {
         TRANSFORM = 0,
         SPRITE
@@ -14,10 +14,12 @@ namespace age
     class component
     {
     public:
-        component() = default;
+        component() = delete;
+        component(ComponentType type);
         virtual ~component();
         virtual void begin();
         virtual void update();
+        ComponentType m_type;
     };
 };
 

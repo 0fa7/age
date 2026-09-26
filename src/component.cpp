@@ -2,6 +2,11 @@
 
 using namespace age;
 
+component::component(ComponentType type) :
+    m_type(type)
+{
+}
+
 component::~component()
 {
 }

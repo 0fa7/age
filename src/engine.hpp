@@ -2,6 +2,7 @@
 #define AGE_ENGINE_HPP
 
 #include "registry.hpp"
+#include "render_system.hpp"
 #include <cstdint>
 #include <memory>
 
@@ -33,7 +34,7 @@ namespace age
         SDL_Window *m_window;
         std::uint64_t m_current_time;
         std::uint64_t m_delta_time;
-        registry m_registry;
+        std::unique_ptr<registry> m_registry;
     };
 };
 

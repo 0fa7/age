@@ -3,6 +3,10 @@
 
 using namespace age;
 
+system::system()
+{
+}
+
 system::~system()
 {
 }

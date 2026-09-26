@@ -15,6 +15,7 @@ set(AGE_SOURCES
     "src/sprite.cpp"
     "src/registry.cpp"
     "src/render_system.cpp"
+    "src/sprite.cpp"
     "src/system.cpp"
     "src/transform.cpp")
 

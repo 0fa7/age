@@ -1,11 +1,12 @@
 #ifndef AGE_SPRITE_HPP
 #define AGE_SPRITE_HPP
 
+#include "component.hpp"
 #include <cstdint>
 
 namespace age
 {
-    class sprite
+    class sprite : public component
     {
     public:
         sprite();

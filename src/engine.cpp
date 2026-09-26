@@ -1,5 +1,6 @@
 #include "engine.hpp"
 #include "logger.hpp"
+#include "sprite.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <SDL3/SDL.h>
@@ -10,7 +11,8 @@ engine::engine() : m_is_running(true),
                    m_renderer(nullptr),
                    m_window(nullptr),
                    m_current_time(0),
-                   m_delta_time(0)
+                   m_delta_time(0),
+                   m_registry(std::make_unique<registry>())
 {
     initialize();
 }
@@ -55,6 +57,7 @@ void engine::initialize()
     SDL_GetWindowSurface(m_window);
     SDL_UpdateWindowSurface(m_window);
 
+    m_registry->create_system();
     update_time();
 
     g_logger.info("Initialization complete.");
@@ -66,7 +69,6 @@ void engine::run()
 
     while (m_is_running)
     {
-
         process_input();
         update_world();
         render();
@@ -77,8 +79,8 @@ void engine::run()
 
 void engine::setup_world()
 {
-    std::uint64_t id = m_registry.create_actor();
-    std::unique_ptr<actor> &a = m_registry.m_actors[0];
+    std::uint64_t id = m_registry->create_actor();
+    m_registry->m_actors[id]->add_component(std::make_unique<sprite>());
 }
 
 void engine::process_input()
@@ -107,7 +109,7 @@ void engine::process_input()
 
 void engine::update_world()
 {
-    for(const auto &actor : m_registry.m_actors)
+    for(const auto &actor : m_registry->m_actors)
     {
         actor->update();
     }
@@ -118,8 +120,9 @@ void engine::render()
     // set bg color & draw
     SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
     SDL_RenderClear(m_renderer);
-
+    
     // layer game objects on to fresh canvas
+    m_registry->m_systems[0]->update(m_registry);
 
     SDL_RenderPresent(m_renderer);
 }

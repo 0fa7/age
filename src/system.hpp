@@ -8,15 +8,18 @@ namespace age
 
     class registry;
 
-    enum class SystemType : std::uint64_t
+    enum SystemType : std::uint64_t
     {
-        RENDER = 0
+        RENDER = 0,
+        MOVEMENT,
+        INPUT
     };
 
     class system
     {
     public:
-        system() = default;
+        system();
+        system(system &other) = default;
         virtual ~system();
         virtual void update(std::unique_ptr<registry> &reg);
     };

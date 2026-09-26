@@ -11,6 +11,7 @@ sprite::sprite() :
     m_g(0),
     m_b(0),
     m_a(0),
-    m_layer(0)
+    m_layer(0),
+    component(ComponentType::SPRITE)
 {
 }

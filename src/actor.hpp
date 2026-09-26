@@ -17,7 +17,7 @@ namespace age
         ~actor() = default;
         void update();
         void add_component(std::unique_ptr<component> component);
-    private:
+        
         std::uint64_t m_id;
         std::vector<std::unique_ptr<component>> m_components;
     };
