@@ -7,10 +7,11 @@ use sdl3::keyboard::Keycode;
 use sdl3::pixels::Color;
 use sdl3::render::Canvas;
 use sdl3::video::Window;
+use std::time::Duration;
 
 pub struct Engine {
-    m_sdl_context: Sdl,
-    m_video_subsystem: VideoSubsystem,
+    _m_sdl_context: Sdl,
+    _m_video_subsystem: VideoSubsystem,
     m_canvas: Canvas<Window>,
     m_event_pump: EventPump,
     m_is_running: bool,
@@ -30,8 +31,8 @@ impl Engine {
         let event_pump = sdl_context.event_pump().unwrap();
 
         Engine {
-            m_sdl_context: sdl_context,
-            m_video_subsystem: video_subsystem,
+            _m_sdl_context: sdl_context,
+            _m_video_subsystem: video_subsystem,
             m_canvas: canvas,
             m_event_pump: event_pump,
             m_is_running: true,
@@ -48,6 +49,7 @@ impl Engine {
             self.process_input();
             self.update();
             self.render();
+            std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
         }
     }
 
@@ -74,5 +76,10 @@ impl Engine {
         self.m_canvas.set_draw_color(Color::RGB(0, 0, 255));
         self.m_canvas.clear();
         self.m_canvas.present();
+    }
+
+    pub fn setup_level(&mut self) {
+        self.m_actors.push(Actor::new(1));
+        &self.m_actors[0].m_components;
     }
 }
